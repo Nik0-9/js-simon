@@ -27,14 +27,16 @@ btnStart.addEventListener('click', function(){
     }
     btnSend.addEventListener('click', function(){
         let userNum = [];
-        let userInput = document.getElementById('user-input').value;
-        for(i=0; i<numberOfbox; i++){
-            userNum.push(userInput);
-            console.log(userInput); 
-
-        }
-                  
-    })
+        let userInput1 = document.getElementById('user-input1').value;
+        let userInput2 = document.getElementById('user-input2').value;
+        let userInput3 = document.getElementById('user-input3').value;
+        let userInput4 = document.getElementById('user-input4').value;
+        let userInput5 = document.getElementById('user-input5').value;
+        userNum.push(userInput1,userInput2,userInput3,userInput4,userInput5);
+        console.log(userNum);
+        //console.log(randomArray);
+        
+    });
 })
 
 function drawBox(content){
@@ -46,7 +48,7 @@ function drawBox(content){
 
 function displayInput(){
     const userInput = document.getElementById('user-num');
-    userInput.className = 'd-block p-3 mt-3';
+    userInput.className = 'p-3 mt-3 ';
 }
 
 function hiddenBox(display){
