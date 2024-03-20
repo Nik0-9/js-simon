@@ -13,7 +13,7 @@ btnStart.addEventListener('click', function(){
     let numberOfbox = 5
     let randomArray = [];
     
-    randomArray = getRandomIntUnique(1, 100, numberOfbox);
+    randomArray = getRandomIntUnique(1, 99, numberOfbox);
       console.log(randomArray);
     const dispalyEl = document.getElementById('display');
     dispalyEl.innerHTML ='';
@@ -32,10 +32,20 @@ btnStart.addEventListener('click', function(){
         let userInput3 = document.getElementById('user-input3').value;
         let userInput4 = document.getElementById('user-input4').value;
         let userInput5 = document.getElementById('user-input5').value;
-        userNum.push(userInput1,userInput2,userInput3,userInput4,userInput5);
+        let result = document.getElementById('result');
+        userNum.push(parseInt(userInput1),parseInt(userInput2),parseInt(userInput3),parseInt(userInput4),parseInt(userInput5));
         console.log(userNum);
         //console.log(randomArray);
-        
+        let correctNum = 0;
+        for(i=0;i<randomArray.length;i++){
+            if(randomArray.includes(userNum[i])){
+                correctNum ++;
+            }
+        }
+        result.innerHTML = `I numeri inseriti sono: ${userNum}. `;
+        result.innerHTML += `I numeri da indovinare erano ${randomArray}. `
+        result.innerHTML += `Hai indovitato ${correctNum} numeri`
+        console.log(correctNum);
     });
 })
 
