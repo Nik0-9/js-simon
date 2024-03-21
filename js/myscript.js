@@ -10,34 +10,41 @@ let btnSend = document.getElementById('send');
 
 
 btnStart.addEventListener('click', function(){
-    let numberOfbox = 5
+    btnStart.disabled = true;
+    let numberOfbox = 5;
     let randomArray = [];
-    
     randomArray = getRandomIntUnique(1, 99, numberOfbox);
-      console.log(randomArray);
+    console.log(randomArray);
     const dispalyEl = document.getElementById('display');
     dispalyEl.innerHTML ='';
+    dispalyEl.classList.remove('invisible');
     setTimeout(function(){
+        displayInput();
+        btnStart.disabled = false;
         dispalyEl.classList.add('invisible'); 
     }, 5000);
-    setTimeout(displayInput, 5000);
-
-    for(i=0; i<numberOfbox; i++){
+    
+    for(let i=0; i<numberOfbox; i++){
         dispalyEl.appendChild(drawBox(randomArray[i]));
     }
     btnSend.addEventListener('click', function(){
         let userNum = [];
-        let userInput1 = document.getElementById('user-input1').value;
+        /*let userInput1 = document.getElementById('user-input1').value;
         let userInput2 = document.getElementById('user-input2').value;
         let userInput3 = document.getElementById('user-input3').value;
         let userInput4 = document.getElementById('user-input4').value;
         let userInput5 = document.getElementById('user-input5').value;
         let result = document.getElementById('result');
-        userNum.push(parseInt(userInput1),parseInt(userInput2),parseInt(userInput3),parseInt(userInput4),parseInt(userInput5));
+        userNum.push(parseInt(userInput1),parseInt(userInput2),parseInt(userInput3),parseInt(userInput4),parseInt(userInput5));*/
+        let userInputs = document.querySelectorAll('.user-input');
+        for(let i=0; i<userInputs.length; i++){
+            userNum.push(parseInt(userInputs[i].value));
+        }
+        console.log(userInputs);
         console.log(userNum);
         //console.log(randomArray);
         let correctNum = 0;
-        for(i=0;i<randomArray.length;i++){
+        for(let i=0;i<randomArray.length;i++){
             if(randomArray.includes(userNum[i])){
                 correctNum ++;
             }
@@ -46,7 +53,7 @@ btnStart.addEventListener('click', function(){
         result.innerHTML += `I numeri da indovinare erano ${randomArray}. `
         result.innerHTML += `Hai indovitato ${correctNum} numeri`
         console.log(correctNum);
-    });
+    },{once: true})
 })
 
 function drawBox(content){
@@ -60,8 +67,3 @@ function displayInput(){
     const userInput = document.getElementById('user-num');
     userInput.className = 'p-3 mt-3 ';
 }
-
-function hiddenBox(display){
-    display.classList.add('invisible'); 
-}
-
