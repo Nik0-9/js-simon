@@ -18,6 +18,7 @@ btnStart.addEventListener('click', function(){
     const dispalyEl = document.getElementById('display');
     dispalyEl.innerHTML ='';
     dispalyEl.classList.remove('invisible');
+    reset();
     setTimeout(function(){
         displayInput();
         btnStart.disabled = false;
@@ -27,7 +28,7 @@ btnStart.addEventListener('click', function(){
     for(let i=0; i<numberOfbox; i++){
         dispalyEl.appendChild(drawBox(randomArray[i]));
     }
-    btnSend.addEventListener('click', function(){
+    btnSend.addEventListener('click',()=>{
         let userNum = [];
         /*let userInput1 = document.getElementById('user-input1').value;
         let userInput2 = document.getElementById('user-input2').value;
@@ -37,22 +38,29 @@ btnStart.addEventListener('click', function(){
         let result = document.getElementById('result');
         userNum.push(parseInt(userInput1),parseInt(userInput2),parseInt(userInput3),parseInt(userInput4),parseInt(userInput5));*/
         let userInputs = document.querySelectorAll('.user-input');
+        userInputs.value = '';
         for(let i=0; i<userInputs.length; i++){
-            userNum.push(parseInt(userInputs[i].value));
+            if(!isNaN(userInputs[i].value)){
+                userNum.push(parseInt(userInputs[i].value));
+            }
         }
         console.log(userInputs);
         console.log(userNum);
         //console.log(randomArray);
         let correctNum = 0;
-        for(let i=0;i<randomArray.length;i++){
+        let guessedNum = [];
+            for(let i=0;i<randomArray.length;i++){
             if(randomArray.includes(userNum[i])){
                 correctNum ++;
+                guessedNum.push(userNum[i]);
             }
         }
         result.innerHTML = `I numeri inseriti sono: ${userNum}. `;
         result.innerHTML += `I numeri da indovinare erano ${randomArray}. `
-        result.innerHTML += `Hai indovitato ${correctNum} numeri`
+        result.innerHTML += `Hai indovitato ${correctNum} numeri: ${guessedNum}`
         console.log(correctNum);
+        console.log(guessedNum);
+
     },{once: true})
 })
 
@@ -65,5 +73,14 @@ function drawBox(content){
 
 function displayInput(){
     const userInput = document.getElementById('user-num');
-    userInput.className = 'p-3 mt-3 ';
+    userInput.classList.remove('d-none');
+}
+function reset(){
+    const userInput = document.getElementById('user-num');
+    userInput.classList.add('d-none');
+    const inputs = document.getElementsByTagName('input');
+    for(i=0; i<inputs.length; i++){
+        inputs[i].value = '';
+    }
+    result.innerHTML = '';
 }
